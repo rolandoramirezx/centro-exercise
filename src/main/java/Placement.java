@@ -1,11 +1,9 @@
-import java.util.Date;
-
 public class Placement {
 
     private int id;
     private String name;
-    private Date start;
-    private Date end;
+    private String start;
+    private String end;
     private int cpm;
 
     public int getId() {
@@ -24,19 +22,19 @@ public class Placement {
         this.name = name;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 

@@ -1,21 +1,18 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class PlacementsReader {
 
+    private List<Placement> records;
+
     public List<Placement> getRecords() {
         return records;
     }
-
-    private List<Placement> records;
 
     public PlacementsReader(String fileName) {
         records = new ArrayList<Placement>();
@@ -25,8 +22,8 @@ public class PlacementsReader {
                 Placement temp = new Placement();
                 temp.setId(Integer.parseInt(values[0]));
                 temp.setName(values[1]);
-                temp.setStart(new SimpleDateFormat("dd/MM/yyyy").parse(values[2]));
-                temp.setEnd(new SimpleDateFormat("dd/MM/yyyy").parse(values[3]));
+                temp.setStart(values[2]);
+                temp.setEnd(values[3]);
                 temp.setCpm(Integer.parseInt(values[4]));
                 records.add(temp);
             }
@@ -35,8 +32,6 @@ public class PlacementsReader {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CsvValidationException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

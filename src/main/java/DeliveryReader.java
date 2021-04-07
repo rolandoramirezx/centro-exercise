@@ -4,18 +4,16 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeliveryReader {
 
+    private List<Delivery> records;
+
     public List<Delivery> getRecords() {
         return records;
     }
-
-    private List<Delivery> records;
 
     public DeliveryReader(String fileName) {
         records = new ArrayList<Delivery>();
@@ -24,7 +22,7 @@ public class DeliveryReader {
             while ((values = csvReader.readNext()) != null) {
                 Delivery temp = new Delivery();
                 temp.setPlacementId(Integer.parseInt(values[0]));
-                temp.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(values[1]));
+                temp.setDate(values[1]);
                 temp.setImpressions(Integer.parseInt(values[2]));
                 records.add(temp);
             }
@@ -33,8 +31,6 @@ public class DeliveryReader {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CsvValidationException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -45,4 +41,5 @@ public class DeliveryReader {
             System.out.println("Placement ID: " + delivery.getPlacementId() + ", Date: " + delivery.getDate() + ", Impressions: " + delivery.getImpressions());
         }
     }
+
 }

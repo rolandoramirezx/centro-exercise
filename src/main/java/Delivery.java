@@ -1,9 +1,7 @@
-import java.util.Date;
-
 public class Delivery {
 
     private int placementId;
-    private Date date;
+    private String date;
     private int impressions;
 
     public int getPlacementId() {
@@ -14,11 +12,11 @@ public class Delivery {
         this.placementId = placementId;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
