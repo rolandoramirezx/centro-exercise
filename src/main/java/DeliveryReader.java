@@ -17,8 +17,12 @@ public class DeliveryReader {
 
     public DeliveryReader(String fileName) {
         records = new ArrayList<Delivery>();
+
+        //try to resolve file path provided
         try (CSVReader csvReader = new CSVReader(new FileReader(fileName));) {
             String[] values = null;
+
+            //iterate through each item in csv and add new delivery to records list
             while ((values = csvReader.readNext()) != null) {
                 Delivery temp = new Delivery();
                 temp.setPlacementId(Integer.parseInt(values[0]));

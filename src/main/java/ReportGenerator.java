@@ -31,9 +31,14 @@ public class ReportGenerator {
         int impressionTotal = 0;
         int cost = 0;
         for(Placement placement: placements) {
+            //create filtered list of deliveries based on placement ID
             List<Delivery> deliveresByPlacementId = filterDeliveriesById(placement.getId());
+
             for (Delivery delivery : deliveresByPlacementId) {
+                //increment impressions total per impressions value for each delivery
                 impressionTotal += delivery.getImpressions();
+
+                //if we've reached the end of our list, calculate report for placement
                 if (delivery == deliveresByPlacementId.get(deliveresByPlacementId.size() - 1)) {
                     cost = (impressionTotal * placement.getCpm() / 1000);
                     System.out.println(placement.getName() + " (" + placement.getStart() + "-" + placement.getEnd() + "): " + impressionTotal + " impressions @ $" + placement.getCpm() + " = " + "$" + cost);
@@ -51,19 +56,26 @@ public class ReportGenerator {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date endDateFormatted = simpleDateFormat.parse(endDate);
         Date startDateFormatted = simpleDateFormat.parse(startDate);
+
+        //iterate through each delivery in the deliveries list
         for(Delivery delivery: deliveries){
             Date deliveryDateFormatted = simpleDateFormat.parse(delivery.getDate());
+
+            //if the delivery is within the start and end date (inclusive), then calculate new impressions and cost total
             if((deliveryDateFormatted.after(startDateFormatted) || deliveryDateFormatted.equals(startDateFormatted)) && (deliveryDateFormatted.before(endDateFormatted) || deliveryDateFormatted.equals(endDateFormatted))){
                 totalImpressions += delivery.getImpressions();
                 totalCost += (delivery.getImpressions() * getPlacementById(delivery.getPlacementId()).getCpm()) / 1000;
             }
         }
+
+        //when we've reached the end of the list, print out the results
         System.out.println("Total" + " (" + startDate + "-" + endDate + "): " + totalImpressions + " impressions, $" + totalCost);
     }
 
     private List<Delivery> filterDeliveriesById(int id){
         List<Delivery> result = new ArrayList<>();
         for(Delivery delivery: deliveries){
+            //if the delivery's placement ID matches the parameter value, add it to results list
             if(delivery.getPlacementId() == id){
                 result.add(delivery);
             }
@@ -75,6 +87,7 @@ public class ReportGenerator {
 
         Placement result = new Placement();
         for(Placement placement: placements){
+            //if the placement's ID matches the parameter value, add it to results list
             if(placement.getId() == id){
                 result = placement;
             }

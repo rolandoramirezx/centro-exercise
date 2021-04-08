@@ -16,8 +16,12 @@ public class PlacementsReader {
 
     public PlacementsReader(String fileName) {
         records = new ArrayList<Placement>();
+
+        //try to resolve file path provided
         try (CSVReader csvReader = new CSVReader(new FileReader(fileName));) {
             String[] values = null;
+
+            //iterate through each item in csv and add new placement to records list
             while ((values = csvReader.readNext()) != null) {
                 Placement temp = new Placement();
                 temp.setId(Integer.parseInt(values[0]));
